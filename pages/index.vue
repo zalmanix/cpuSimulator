@@ -2,9 +2,9 @@
   <div>
     <Header/>
 
-    <!-- <div class="bg-green-300"> -->
     <div>
       <div class="px-40 flex flex-row">
+        <!-- First Row of Inputs -->
         <div class="flex flex-col">
           <div
             class="flex p-2"
@@ -24,6 +24,7 @@
           </div>
         </div>
 
+        <!-- Second Row of Inputs -->
         <div class="flex flex-col">
           <div
             class="flex p-2"
@@ -43,6 +44,7 @@
           </div>
         </div>
 
+        <!-- Buttons -->
         <div class="p-2 flex flex-col justify-around">
           <button class="px-4 py-2 font-semibold text-sm bg-green-500 text-white rounded-full shadow-sm hover:bg-green-600">
             Zapisz
@@ -59,21 +61,94 @@
             Reset
           </button>
         </div>
+
+        <!-- First Sst of instructions -->
+        <div class="p-2 flex flex-col justify-around">
+          <div class="px-1">
+            <input type="radio" name="firstSetOfInstructions" value="AL">
+
+            <label>AL</label>
+          </div>
+
+          <div class="px-1">
+            <input type="radio" name="firstSetOfInstructions" value="BL">
+
+            <label>BL</label>
+          </div>
+
+          <div class="px-1">
+            <input type="radio" name="firstSetOfInstructions" value="MOV">
+
+            <label>MOV</label>
+          </div>
+
+          <div class="px-1">
+            <input type="radio" name="firstSetOfInstructions" value="MOV">
+
+            <label>MOV</label>
+          </div>
+
+          <div class="px-1">
+            <input type="radio" name="firstSetOfInstructions" value="MOV">
+
+            <label>MOV</label>
+          </div>
+
+          <div class="px-1">
+            <input type="radio" name="firstSetOfInstructions" value="MOV">
+
+            <label>MOV</label>
+          </div>
+
+          <div class="px-1">
+            <input type="radio" name="firstSetOfInstructions" value="MOV">
+
+            <label>MOV</label>
+          </div>
+
+          <div class="px-1">
+            <input type="radio" name="firstSetOfInstructions" value="MOV">
+
+            <label>MOV</label>
+          </div>
+        </div>
       </div>
 
+      <div class="px-40 flex flex-row">
+        <!-- Misc Buttons -->
+        <div class="p-2 flex flex-col justify-around ">
+          <h4>
+            Data Movement Instructions:
+          </h4>
+
+          <InputTemplate
+            :radioMainName="dataMovementInstructions"
+            :name="MOV"
+          />
+
+          <InputTemplate
+            :radioMainName="dataMovementInstructions"
+            :name="XCHG"
+          />
+        </div>
+
+
+      </div>
 
     </div>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import Header from '~/components/Header.vue'
+import Vue from 'vue';
+import Header from '~/components/Header.vue';
+import InputTemplate from '~/components/InputTemplate.vue';
 
 export default Vue.extend({
   name: 'IndexPage',
   components: {
     Header,
+    InputTemplate,
   },
   data: () => ({
    inputs: ['A', 'B', 'C', 'D'],
@@ -90,5 +165,4 @@ export default Vue.extend({
     }
   }
 })
-
-    Header</script>
+</script>
