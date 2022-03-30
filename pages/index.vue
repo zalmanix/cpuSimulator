@@ -3,9 +3,9 @@
     <Header/>
 
     <div>
-      <div class="px-40 flex flex-row">
+      <div class="px-40 flex flex-row justify-evenly">
         <!-- First Row of Inputs -->
-        <div class="flex flex-col">
+        <div class="flex flex-col justify-evenly">
           <div
             class="flex p-2"
             v-for="(input, i) in inputs"
@@ -16,7 +16,7 @@
             </span>
 
             <input
-              class="js-input-base w-24 bg-blue-300 focus:bg-blue-400 rounded-lg"
+              class="js-input-base w-24 bg-gray-200 focus:bg-gray-300 rounded-lg"
               type="text"
               maxlength="4"
               placeholder="0000"
@@ -25,7 +25,7 @@
         </div>
 
         <!-- Second Row of Inputs -->
-        <div class="flex flex-col">
+        <div class="flex flex-col justify-evenly">
           <div
             class="flex p-2"
             v-for="(input, i) in inputs"
@@ -36,7 +36,7 @@
             </span>
 
             <input
-              class="js-input-base w-24 bg-blue-300 focus:bg-blue-400 rounded-lg text-white"
+              class="js-input-base w-24 bg-gray-200 focus:bg-gray-300 rounded-lg"
               type="text"
               maxlength="4"
               placeholder="0000"
@@ -45,96 +45,128 @@
         </div>
 
         <!-- Buttons -->
-        <div class="p-2 flex flex-col justify-around">
-          <button class="px-4 py-2 font-semibold text-sm bg-green-500 text-white rounded-full shadow-sm hover:bg-green-600">
+        <div class="p-2 flex flex-col justify-evenly">
+          <button
+            class="px-4 py-2 font-semibold text-sm bg-blue-500 text-white rounded-full shadow-sm hover:bg-blue-600"
+            @click="saveInputValues()"
+          >
             Zapisz
           </button>
 
-          <button class="px-4 py-2 font-semibold text-sm bg-purple-500 text-white rounded-full shadow-sm hover:bg-purple-600">
+          <button
+            class="px-4 py-2 font-semibold text-sm bg-purple-500 text-white rounded-full shadow-sm hover:bg-purple-600"
+            @click="randomHexForInputs()"
+          >
             Randomowe Dane
           </button>
 
           <button
             class="px-4 py-2 font-semibold text-sm bg-red-500 text-white rounded-full shadow-sm hover:bg-red-600"
-            @click="resetValues"
+            @click="resetValuesForInputs()"
           >
             Reset
           </button>
         </div>
 
-        <!-- First Sst of instructions -->
-        <div class="p-2 flex flex-col justify-around">
-          <div class="px-1">
-            <input type="radio" name="firstSetOfInstructions" value="AL">
+        <div class="flex-col justify-evenly">
+          <h3>
+            Pierwszy i drugi Set instrukcji
+          </h3>
 
-            <label>AL</label>
-          </div>
+          <div class="flex-row flex justify-center">
+            <FirstSetOfInstructions />
 
-          <div class="px-1">
-            <input type="radio" name="firstSetOfInstructions" value="BL">
-
-            <label>BL</label>
-          </div>
-
-          <div class="px-1">
-            <input type="radio" name="firstSetOfInstructions" value="MOV">
-
-            <label>MOV</label>
-          </div>
-
-          <div class="px-1">
-            <input type="radio" name="firstSetOfInstructions" value="MOV">
-
-            <label>MOV</label>
-          </div>
-
-          <div class="px-1">
-            <input type="radio" name="firstSetOfInstructions" value="MOV">
-
-            <label>MOV</label>
-          </div>
-
-          <div class="px-1">
-            <input type="radio" name="firstSetOfInstructions" value="MOV">
-
-            <label>MOV</label>
-          </div>
-
-          <div class="px-1">
-            <input type="radio" name="firstSetOfInstructions" value="MOV">
-
-            <label>MOV</label>
-          </div>
-
-          <div class="px-1">
-            <input type="radio" name="firstSetOfInstructions" value="MOV">
-
-            <label>MOV</label>
+            <SecondSetOfInstructions />
           </div>
         </div>
       </div>
 
-      <div class="px-40 flex flex-row">
+      <div class="px-40 flex flex-row justify-evenly">
         <!-- Misc Buttons -->
-        <div class="p-2 flex flex-col justify-around ">
+        <div class="p-2 flex flex-col justify-around items-center">
           <h4>
             Data Movement Instructions:
           </h4>
 
-          <InputTemplate
-            :radioMainName="dataMovementInstructions"
-            :name="MOV"
-          />
+          <div class="px-1">
+            <input type="radio" name="dataMovementInstructions" value="MOV" class="px-1">
 
-          <InputTemplate
-            :radioMainName="dataMovementInstructions"
-            :name="XCHG"
-          />
+            <label>MOV</label>
+          </div>
+
+          <div class="px-1">
+            <input type="radio" name="dataMovementInstructions" value="XCHG" class="px-1">
+
+            <label>XCHG</label>
+          </div>
         </div>
 
-
+        <div class="w-1/2 flex items-center justify-center">
+          <button class="px-4 py-2 w-full font-semibold text-sm bg-green-500 text-white rounded-full shadow-sm hover:bg-green-600">
+            Wykonaj Symulację
+          </button>
+        </div>
       </div>
 
+      <div class="px-40 py-10 flex flex-row justify-evenly">
+        <div>
+          <span class="bold">AH:</span>
+          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+            0000
+          </span>
+        </div>
+
+        <div>
+          <span class="bold">BH:</span>
+          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+            0000
+          </span>
+        </div>
+
+        <div>
+          <span class="bold">CH:</span>
+          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+            0000
+          </span>
+        </div>
+
+        <div>
+          <span class="bold">DH:</span>
+          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+            0000
+          </span>
+        </div>
+
+        <div></div>
+
+        <div>
+          <span class="bold">AL:</span>
+          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+            0000
+          </span>
+        </div>
+
+        <div>
+          <span class="bold">BL:</span>
+          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+            0000
+          </span>
+        </div>
+
+        <div>
+          <span class="bold">CL:</span>
+          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+            0000
+          </span>
+        </div>
+
+        <div>
+          <span class="bold">DL:</span>
+          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+            0000
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -142,26 +174,47 @@
 <script>
 import Vue from 'vue';
 import Header from '~/components/Header.vue';
-import InputTemplate from '~/components/InputTemplate.vue';
+import FirstSetOfInstructions from '~/components/FirstSetOfInstructions.vue'
+import SecondSetOfInstructions from '~/components/SecondSetOfInstructions.vue'
 
 export default Vue.extend({
   name: 'IndexPage',
   components: {
     Header,
-    InputTemplate,
+    FirstSetOfInstructions,
+    SecondSetOfInstructions,
   },
   data: () => ({
    inputs: ['A', 'B', 'C', 'D'],
+   genRanHex: size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join(''),
+   inputValues: []
   }),
-  setup() {
-    function resetValues() {
-      const inputs = document.querySelectorAll('.js-input-base');
+  methods: {
+    resetValuesForInputs() {
+      const inputsElements = [...document.querySelectorAll('.js-input-base')];
 
-      console.log(inputs)
-    }
+      inputsElements.forEach(input => {
+        input.value = null;
+      });
+    },
+    randomHexForInputs() {
+      const inputsElements = [...document.querySelectorAll('.js-input-base')];
 
-    return {
-      resetValues
+      inputsElements.forEach(input => {
+        input.value = this.$data.genRanHex(4);
+      });
+    },
+    saveInputValues() {
+      this.$data.inputValues = [];
+      const inputsElements = [...document.querySelectorAll('.js-input-base')];
+
+      inputsElements.forEach(input => {
+        this.$data.inputValues.push(input.value);
+      });
+      console.log(this.$data.inputValues)
+    },
+    startTheSimulation() {
+
     }
   }
 })
