@@ -226,6 +226,7 @@ export default Vue.extend({
         this.$data.inputValues.push(input.value);
       });
 
+      this.$data.displayEffect(this.$data.inputValues);
     },
     startTheSimulation() {
       const simulationMethods = document.querySelector('input[name="dataMovementInstructions"]:checked');
