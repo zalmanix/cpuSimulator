@@ -1,173 +1,175 @@
 <template>
-  <div>
-    <Header/>
+  <div class="h-screen flex justify-center items-center m-auto background">
+    <div class="max-w-7xl p-1 rounded-md "> 
+      <div class="text-white">
+        <Header/>
 
-    <div>
-      <div class="px-40 flex flex-row justify-evenly">
-        <!-- First Row of Inputs -->
-        <div class="flex flex-col justify-evenly">
-          <div
-            class="flex p-2"
-            v-for="(input, i) in inputs"
-            :key="i"
-          >
-            <span class="p-1 font-semibold">
-              {{input}}L
-            </span>
-
-            <input
-              class="js-input-base w-24 bg-gray-200 focus:bg-gray-300 rounded-lg"
-              type="text"
-              maxlength="4"
-              placeholder="0000"
+        <div class="pt-10 body px-40 flex flex-row justify-evenly">
+          <!-- First Row of Inputs -->
+          <div class="flex flex-col justify-evenly">
+            <div
+              class="flex p-2"
+              v-for="(input, i) in inputs"
+              :key="i"
             >
+              <span class="p-1 font-semibold">
+                {{input}}L
+              </span>
+
+              <input
+                class="js-input-base w-24 bg-gray-200 focus:bg-gray-300 rounded-lg"
+                type="text"
+                maxlength="4"
+                placeholder="0000"
+              >
+            </div>
           </div>
-        </div>
 
-        <!-- Second Row of Inputs -->
-        <div class="flex flex-col justify-evenly">
-          <div
-            class="flex p-2"
-            v-for="(input, i) in inputs"
-            :key="i"
-          >
-            <span class="p-1 font-semibold">
-              {{input}}H
-            </span>
-
-            <input
-              class="js-input-base w-24 bg-gray-200 focus:bg-gray-300 rounded-lg"
-              type="text"
-              maxlength="4"
-              placeholder="0000"
+          <!-- Second Row of Inputs -->
+          <div class="flex flex-col justify-evenly">
+            <div
+              class="flex p-2"
+              v-for="(input, i) in inputs"
+              :key="i"
             >
+              <span class="p-1 font-semibold">
+                {{input}}H
+              </span>
+
+              <input
+                class="js-input-base w-24 bg-gray-200 focus:bg-gray-300 rounded-lg"
+                type="text"
+                maxlength="4"
+                placeholder="0000"
+              >
+            </div>
+          </div>
+
+          <div class="flex-col justify-evenly">
+            <h3>
+              Pierwszy i drugi adres instrukcji
+            </h3>
+
+            <div class="flex-row flex justify-center">
+              <FirstSetOfInstructions />
+
+              <SecondSetOfInstructions />
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="p-2 flex flex-col justify-evenly">
+            <button
+              class="bg-gray-500 px-4 py-2 font-semibold text-sm text-white rounded-lg shadow-sm hover:bg-gray-600"
+              @click="saveInputValues()"
+            >
+              Zapisz
+            </button>
+
+            <button
+              class="bg-gray-500 px-4 py-2 font-semibold text-sm text-white rounded-lg shadow-sm hover:bg-gray-600"
+              @click="randomHexForInputs()"
+            >
+              Randomowe Dane
+            </button>
+
+            <button
+              class="px-4 py-2 font-semibold text-sm bg-gray-500 text-white rounded-lg shadow-sm hover:bg-gray-600"
+              @click="resetValuesForInputs()"
+            >
+              Reset
+            </button>
           </div>
         </div>
 
-        <!-- Buttons -->
-        <div class="p-2 flex flex-col justify-evenly">
-          <button
-            class="px-4 py-2 font-semibold text-sm bg-blue-500 text-white rounded-full shadow-sm hover:bg-blue-600"
-            @click="saveInputValues()"
-          >
-            Zapisz
-          </button>
+        <div class="body px-40 pt-10 flex flex-row justify-evenly">
+          <!-- Misc Buttons -->
+          <div class="p-2 flex flex-col justify-around items-center">
+            <h4>
+              Data Movement Instructions:
+            </h4>
 
-          <button
-            class="px-4 py-2 font-semibold text-sm bg-purple-500 text-white rounded-full shadow-sm hover:bg-purple-600"
-            @click="randomHexForInputs()"
-          >
-            Randomowe Dane
-          </button>
+            <div class="px-1">
+              <input type="radio" name="dataMovementInstructions" value="MOV" class="px-1">
 
-          <button
-            class="px-4 py-2 font-semibold text-sm bg-red-500 text-white rounded-full shadow-sm hover:bg-red-600"
-            @click="resetValuesForInputs()"
-          >
-            Reset
-          </button>
-        </div>
+              <label>MOV</label>
+            </div>
 
-        <div class="flex-col justify-evenly">
-          <h3>
-            Pierwszy i drugi Set instrukcji
-          </h3>
+            <div class="px-1">
+              <input type="radio" name="dataMovementInstructions" value="XCHG" class="px-1">
 
-          <div class="flex-row flex justify-center">
-            <FirstSetOfInstructions />
-
-            <SecondSetOfInstructions />
-          </div>
-        </div>
-      </div>
-
-      <div class="px-40 flex flex-row justify-evenly">
-        <!-- Misc Buttons -->
-        <div class="p-2 flex flex-col justify-around items-center">
-          <h4>
-            Data Movement Instructions:
-          </h4>
-
-          <div class="px-1">
-            <input type="radio" name="dataMovementInstructions" value="MOV" class="px-1">
-
-            <label>MOV</label>
+              <label>XCHG</label>
+            </div>
           </div>
 
-          <div class="px-1">
-            <input type="radio" name="dataMovementInstructions" value="XCHG" class="px-1">
-
-            <label>XCHG</label>
+          <div class="w-1/2 flex items-center justify-center">
+            <button
+              class="px-4 py-2 w-full font-semibold text-sm bg-green-800 text-white rounded-lg shadow-sm hover:bg-green-900"
+              @click="startTheSimulation()"
+            >
+              Symuluj
+            </button>
           </div>
         </div>
 
-        <div class="w-1/2 flex items-center justify-center">
-          <button
-            class="px-4 py-2 w-full font-semibold text-sm bg-green-500 text-white rounded-full shadow-sm hover:bg-green-600"
-            @click="startTheSimulation()"
-          >
-            Wykonaj Symulację
-          </button>
-        </div>
-      </div>
+        <div class="body px-40 py-10 flex flex-row justify-evenly">
+          <div>
+            <span class="bold">AL:</span>
+            <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+              0000
+            </span>
+          </div>
 
-      <div class="px-40 py-10 flex flex-row justify-evenly">
-        <div>
-          <span class="bold">AL:</span>
-          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
-            0000
-          </span>
-        </div>
+          <div>
+            <span class="bold">BL:</span>
+            <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+              0000
+            </span>
+          </div>
 
-        <div>
-          <span class="bold">BL:</span>
-          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
-            0000
-          </span>
-        </div>
+          <div>
+            <span class="bold">CL:</span>
+            <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+              0000
+            </span>
+          </div>
 
-        <div>
-          <span class="bold">CL:</span>
-          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
-            0000
-          </span>
-        </div>
+          <div>
+            <span class="bold">DL:</span>
+            <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+              0000
+            </span>
+          </div>
 
-        <div>
-          <span class="bold">DL:</span>
-          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
-            0000
-          </span>
-        </div>
+          <div></div>
 
-        <div></div>
+          <div>
+            <span class="bold">AH:</span>
+            <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+              0000
+            </span>
+          </div>
 
-        <div>
-          <span class="bold">AH:</span>
-          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
-            0000
-          </span>
-        </div>
+          <div>
+            <span class="bold">BH:</span>
+            <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+              0000
+            </span>
+          </div>
 
-        <div>
-          <span class="bold">BH:</span>
-          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
-            0000
-          </span>
-        </div>
+          <div>
+            <span class="bold">CH:</span>
+            <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+              0000
+            </span>
+          </div>
 
-        <div>
-          <span class="bold">CH:</span>
-          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
-            0000
-          </span>
-        </div>
-
-        <div>
-          <span class="bold">DH:</span>
-          <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
-            0000
-          </span>
+          <div>
+            <span class="bold">DH:</span>
+            <span class="js-result js-1 border border-gray-400 p-1 rounded-lg">
+              0000
+            </span>
+          </div>
         </div>
       </div>
     </div>
